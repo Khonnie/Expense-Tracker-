@@ -31,9 +31,13 @@ function AddExpense(event) {
     });
     localStorage.setItem('expense', JSON.stringify(Expenses));
     display();
+    input1.value = 'income';
+    input2.value = '';
+    input3.value = '';
   }
 }
   function display(){
+    table.innerHTML = '';
     Expenses = JSON.parse(localStorage.getItem('expense')) || [];
     Ny=0;
     Exp=0;
