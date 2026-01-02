@@ -1,0 +1,129 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  background-color: lightgreen;
+  font-family: Sans-Serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+.container{
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 5px;
+}
+.container1{
+  background-color: lightgrey;
+  border-radius: 5px;
+  box-shadow: 5px 5px 20px lightgreen;
+  padding: 8px;
+  margin: 10px;
+}
+.bal{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.Ny{
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+.TNy{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border-right: 2px solid green;
+  padding-right: 10px;
+}
+.Texp{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.container2{
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  padding: 10px;
+}
+.display2{
+  display: flex;
+  flex-direction: column;
+}
+.tb{
+  margin-bottom: 15px;
+}
+.table-container{
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+}
+table{
+  border-collapse: collapse;
+  width: 100%;
+}
+thead th {
+  position: sticky;
+  top: 0; 
+  background-color:green;
+  z-index: 1;
+}
+th,td{
+  padding: 10px;
+}
+tr{
+  border:1.5px solid lightgrey;
+}
+
+.actionbtn{
+  display: flex;
+  gap: 5px;
+}
+.display3{
+  display: flex;
+  flex-direction: column;
+}
+.form-group{
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: center;
+  margin-bottom: 10px;
+}
+label{
+  text-align: left;
+  padding-left: 10px;
+}
+form{
+  border-left: 2px solid green;
+  margin-top: 10px;
+}
+button{
+  background-color: lightgreen;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid green;
+}
+input{
+  outline: none;
+  padding: 4px;
+}
+select{
+  outline: none;
+  padding: 4px;
+}
+p{
+  margin-top: 8px;
+}
