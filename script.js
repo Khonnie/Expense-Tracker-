@@ -6,6 +6,7 @@ const addbutton = document.getElementById('addbtn');
 const bal = document.getElementById('bal');
 const Tny = document.getElementById('TNy');
 const Texp = document.getElementById('Texp');
+const tbody = document.createElement('tbody');
 
 let Ny = 0;
 let Exp = 0;
@@ -37,11 +38,12 @@ function AddExpense(event) {
   }
 }
   function display(){
-    table.innerHTML = '';
+    tbody.innerHTML = '';
     Expenses = JSON.parse(localStorage.getItem('expense')) || [];
     Ny=0;
     Exp=0;
     Expenses.forEach((expense, index) =>{
+      
     const tr = document.createElement('tr');
 
     const td1 = document.createElement('td');
@@ -93,7 +95,8 @@ function AddExpense(event) {
   td5.appendChild(delbtn);
 
     tr.append(td1, td2, td3, td4, td5);
-    table.appendChild(tr);
+    tbody.appendChild(tr);
+    table.appendChild(tbody);
 
     // Update totals
     if (expense.type === 'income') {
