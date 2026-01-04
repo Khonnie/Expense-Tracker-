@@ -40,11 +40,24 @@
           <th>Name</th>
           <th>Amount</th>
           <th>Type</th>
+          <th>Date</th>
           <th>Action</th>
         </tr>
        </thead>
+       <tbody id="tbody"></tbody>
       </table>
       </div>
+      <div class= 'filter-section'>
+      <div class="total" id="total1"></div>
+      <div  class="filter">
+        <label for="entry">Filter by Entry Type:</label>
+        <select name="entry" id="entry">
+          <option value="all">All</option>
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+        </div>
+        </div>
       </div>
       <div class="display3">
         <h3>Add New</h3>
@@ -65,7 +78,11 @@
           <label for="amtname">Amount:</label>
           <input type="text" id="amtname" name="amtname">
         </div>
-        <button id="addbtn" type="button">Add Expense</button>
+        <div class="form-group">
+          <label for="date">Date:</label>
+          <input type="date" id="date" name="date">
+        </div>
+        <button id="addbtn" type="button" class="addexp">Add Expense</button>
         </form>
       </div>
     </div>

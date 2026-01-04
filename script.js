@@ -1,49 +1,61 @@
+// --- GET ELEMENTS --
 const input1 = document.getElementById('type');
 const input2 = document.getElementById('expname');
 const input3 = document.getElementById('amtname');
-const table = document.getElementById('tab');
+const input4 = document.getElementById('date');
 const addbutton = document.getElementById('addbtn');
 const bal = document.getElementById('bal');
 const Tny = document.getElementById('TNy');
 const Texp = document.getElementById('Texp');
-const tbody = document.createElement('tbody');
+const tbody = document.getElementById('tbody');
+const filterType = document.getElementById('entry'); 
+const div = document.getElementById('total1');
 
 let Ny = 0;
 let Exp = 0;
+
+// Load from localStorage
 let Expenses = JSON.parse(localStorage.getItem('expense')) || [];
-window.addEventListener('DOMContentLoaded', display)
-function AddExpense(event) {
-  event.preventDefault();
-  
+
+// - ADD EXPENSE---
+function AddExpense() {
   const userSelectedType = input1.value;
   const userExpenseValue = input2.value.trim();
   const userAmountValue = Number(input3.value.trim());
+  const userSelectedDate = input4.value;
 
   if (
     (userSelectedType === 'income' || userSelectedType === 'expense') &&
     userExpenseValue !== '' &&
-    userAmountValue > 0
+    userAmountValue > 0 &&
+    userSelectedDate !== ''
   ) {
-    
     Expenses.push({
       type: userSelectedType,
       name: userExpenseValue,
-      amount: userAmountValue
+      amount: userAmountValue,
+      date: userSelectedDate
     });
+
     localStorage.setItem('expense', JSON.stringify(Expenses));
-    display();
-    input1.value = 'income';
+
+    // clear form/inputs
+    input1.value = '';
     input2.value = '';
     input3.value = '';
+    input4.value = '';
+
+    applyFilter();
   }
 }
-  function display(){
-    tbody.innerHTML = '';
-    Expenses = JSON.parse(localStorage.getItem('expense')) || [];
-    Ny=0;
-    Exp=0;
-    Expenses.forEach((expense, index) =>{
-      
+
+// ---DISPLAY EXPENSES-------
+function display(filteredExpenses = Expenses) {
+  tbody.innerHTML = '';
+  Ny = 0;
+  Exp = 0;
+
+  filteredExpenses.forEach((expense, index) => {
     const tr = document.createElement('tr');
 
     const td1 = document.createElement('td');
@@ -56,61 +68,83 @@ function AddExpense(event) {
     td3.textContent = expense.amount;
 
     const td4 = document.createElement('td');
-    if (expense.type === 'income') {
-  td4.innerHTML = '<i class="fa-solid fa-circle-arrow-up" style="color:green;"></i>';
-} else {
-  td4.innerHTML = '<i class="fa-solid fa-circle-arrow-down" style="color:red;"></i>';
-}
-    //td4.textContent = userSelectedType;
+    td4.innerHTML =
+      expense.type === 'income'
+        ? '<i class="fa-solid fa-circle-arrow-up" style="color:green;"></i>'
+        : '<i class="fa-solid fa-circle-arrow-down" style="color:red;"></i>';
 
     const td5 = document.createElement('td');
-    td5.classList.add('actionbtn');
-// Create Edit button
+    td5.textContent = expense.date;
+
+    const td6 = document.createElement('td');
+
+    // Edit button
     const editbtn = document.createElement('button');
     editbtn.textContent = 'Edit';
     editbtn.addEventListener('click', () => {
-    input2.value = expense.name;
-    input3.value = expense.amount;
-    input1.value = expense.type;
+      input2.value = expense.name;
+      input3.value = expense.amount;
+      input1.value = expense.type;
+      input4.value = expense.date;
 
-  // remove row after editing
-  Expenses.splice(index, 1);
-  localStorage.setItem('expense',JSON.stringify(Expenses));
-  display();
-});
-// Create Delete button
-  const delbtn = document.createElement('button');
-  delbtn.textContent = 'Delete';
+      Expenses.splice(index, 1);
+      localStorage.setItem('expense', JSON.stringify(Expenses));
 
-  delbtn.addEventListener('click', () => {
-  if (confirm('Are you sure you want to delete?')) {
-  
-    Expenses.splice(index, 1);
-    localStorage.setItem('expense', JSON.stringify(Expenses));
-    display();
-  }
-});
-// Append buttons to td5
-  td5.appendChild(editbtn);
-  td5.appendChild(delbtn);
+      applyFilter();
+    });
 
-    tr.append(td1, td2, td3, td4, td5);
+    // Delete button
+    const delbtn = document.createElement('button');
+    delbtn.textContent = 'Delete';
+    delbtn.addEventListener('click', () => {
+      if (confirm('Are you sure you want to delete?')) {
+        Expenses.splice(index, 1);
+        localStorage.setItem('expense', JSON.stringify(Expenses));
+        applyFilter();
+      }
+    });
+
+    td6.append(editbtn, delbtn);
+    tr.append(td1, td2, td3, td4, td5, td6);
     tbody.appendChild(tr);
-    table.appendChild(tbody);
 
-    // Update totals
-    if (expense.type === 'income') {
-      Ny += expense.amount;
-      Tny.textContent = `UGX ${Ny}`;
-    }
+    if (expense.type === 'income') Ny += expense.amount;
+    if (expense.type === 'expense') Exp += expense.amount;
+  });
 
-    if (expense.type === 'expense') {
-      Exp += expense.amount;
-      Texp.textContent = `UGX ${Exp}`;
-    }
+  Tny.textContent = `UGX ${Ny}`;
+  Texp.textContent = `UGX ${Exp}`;
+  bal.textContent = `UGX ${Ny - Exp}`;
+}
 
-    bal.textContent = `UGX ${Ny - Exp}`;
-    })
+// ------- FILTER----------------
+function applyFilter() {
+  const type = filterType.value;
+  const span = document.createElement('span');
+  div.innerHTML = '';
+  let filtered;
+
+  if (type === 'all') {
+    filtered = Expenses;
+  } else {
+    filtered = Expenses.filter(exp => exp.type === type);
   }
 
+  
+
+  const total = filtered.reduce(
+    (sum, expense) => sum + expense.amount,
+    0
+  );
+
+  span.textContent = `TOTAL: UGX ${total}`;
+  div.appendChild(span);
+  display(filtered);
+}
+
+// ------ EVENTS --------------------
 addbutton.addEventListener('click', AddExpense);
+filterType.addEventListener('change', applyFilter);
+
+// ------INITIAL LOAD ---------------
+window.addEventListener('DOMContentLoaded', applyFilter);

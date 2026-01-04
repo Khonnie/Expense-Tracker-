@@ -6,6 +6,7 @@
 body{
   background-color: lightgreen;
   font-family: Sans-Serif;
+  font-size: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,6 +19,9 @@ body{
   align-items: center;
   flex-direction: column;
   border-radius: 5px;
+  width: 100%;
+  max-width: 700px;
+  padding: 10px;
 }
 .container1{
   background-color: lightgrey;
@@ -56,6 +60,7 @@ body{
   gap: 10px;
   text-align: center;
   padding: 10px;
+  width: 100%;
 }
 .display2{
   display: flex;
@@ -68,6 +73,8 @@ body{
   max-height: 300px;
   overflow-y: auto;
   border: 1px solid #ccc;
+  margin-bottom: 20px;
+  width: 100%;;
 }
 table{
   border-collapse: collapse;
@@ -78,9 +85,13 @@ thead th {
   top: 0; 
   background-color:green;
   z-index: 1;
+  
 }
 th,td{
-  padding: 10px;
+  padding: 6px;
+  text-align: left;
+  
+  
 }
 tr{
   border:1.5px solid lightgrey;
@@ -88,7 +99,9 @@ tr{
 
 .actionbtn{
   display: flex;
-  gap: 5px;
+  justify-content: center;
+  gap: 8px;
+  flex-direction: row;
 }
 .display3{
   display: flex;
@@ -96,9 +109,9 @@ tr{
 }
 .form-group{
   display: grid;
-  grid-template-columns: 120px 1fr;
+  grid-template-columns: 70px 0.5fr;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 label{
   text-align: left;
@@ -109,21 +122,48 @@ form{
   margin-top: 10px;
 }
 button{
-  background-color: lightgreen;
+  background-color: grey;
   color: white;
   font-weight: bold;
-  padding: 10px;
-  border-radius: 5px;
-  border: 2px solid green;
+  padding: 2px;
+  border-radius: 2px;
+  border: 1px solid lightgrey;
+  font-size: 5px;
 }
 input{
   outline: none;
-  padding: 4px;
+  padding: 1px;
+  width: 150px;
 }
 select{
   outline: none;
-  padding: 4px;
+  padding: 2px;
+  font-size: 5px;
 }
-p{
-  margin-top: 8px;
+.filter{
+  display: grid;
+  grid-template-columns: 100px 1fr;
+ margin-left:10px;
+}
+.total{
+  display: flex;      /* or inline-flex */
+  align-items: center;
+  font-weight: bold;
+  
+  margin-left: 140px;
+  
+  margin-top: 2px;
+}
+.addexp{
+  background-color: green;
+  padding: 5px;
+  border-radius: 5px;
+}
+.addexp:hover{
+  cursor: pointer;
+  background-color: lightgreen;
+}
+span{
+  display: flex;
+  justify-content: center;
 }
